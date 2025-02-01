@@ -73,7 +73,7 @@ def solve_quadratic(a, b, c):
 
     def simplify_radical(a, d):
         h = 1
-        for j in range(1, a):
+        for j in range(1, int(a)):
             if a / j**2 - int(a / j**2) == 0:
                 h = j
         j = a / h**2
@@ -106,12 +106,14 @@ def solve_quadratic(a, b, c):
     disc = b * b - 4 * a * c
     e = sqrt(abs(disc))
     f = e - int(e)
-    if disc == 0:
+    if abs(disc) < 1e-10:
         print(
-            "Disc.=0, repeated root at x="
+            "Disc.=0, repeated root at:\nx="
             + stringify_fraction(-b, 2 * a),
         )
-    if disc < 0:
+        print("in decimal:")
+        print("x=" + str(-b / (2 * a)))
+    elif disc < 0:
         print("Disc.=" + str(disc) + ", two complex roots.")
         if f == 0:
             print("Complex perfect square, rational parts at:")
@@ -130,6 +132,8 @@ def solve_quadratic(a, b, c):
                 + (ify if ify != "1" else "")
                 + "i"
             )
+            print("in decimal:")
+            print("x=" + str(-b / (2 * a)) + "\u00B1" + str(e / (2 * a)) + "i")
         else:
             ify = simplify_radical(abs(disc), 2 * a)
             print("Complex radical roots at:")
@@ -139,12 +143,17 @@ def solve_quadratic(a, b, c):
                 + (ify if ify != "1" else "")
                 + "i"
             )
-    if disc > 0:
+            print("in decimal:")
+            print("x=" + str(-b / (2 * a)) + "\u00B1" + str(e / (2 * a)) + "i")
+    elif disc > 0:
         print("Disc.=" + str(disc) + ", two real roots.")
         if f == 0:
             print("Real perfect square, rational roots at:")
             print("x=" + stringify_fraction(-b + int(e), 2 * a))
             print("x=" + stringify_fraction(-b - int(e), 2 * a))
+            print("in decimal:")
+            print("x=" + str((-b + e) / (2 * a)))
+            print("x=" + str((-b - e) / (2 * a)))
         else:
             print("Real radical roots at:")
             print(
@@ -152,3 +161,6 @@ def solve_quadratic(a, b, c):
                 + stringify_fraction(-b, 2 * a)
                 + simplify_radical(disc, 2 * a)
             )
+            print("in decimal:")
+            print("x=" + str((-b + e) / (2 * a)))
+            print("x=" + str((-b - e) / (2 * a)))
