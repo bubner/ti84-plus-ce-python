@@ -65,102 +65,90 @@ def solve_quadratic(a, b, c):
             a, b = b, a % b
         return a
 
-    def stringify_fraction(a, b):
-        g = gcd(abs(a), abs(b))
-        c = a / g
-        d = b / g
-        return str(int(c)) + "/" + str(int(d)) if d != 1 else str(int(c))
+    def stringify_fraction(n, d):
+        g = gcd(abs(n), abs(d))
+        n //= g
+        d //= g
+        if d == 1:
+            return str(n)
+        return str(n) + "/" + str(d)
 
     def simplify_radical(a, d):
         h = 1
-        for j in range(1, int(a)):
-            if a / j**2 - int(a / j**2) == 0:
+        j = 1
+        while j * j <= a:
+            if a % (j * j) == 0:
                 h = j
-        j = a / h**2
-        if j == 1:
-            return stringify_fraction(int(h), d)
-        else:
-            ify = stringify_fraction(int(h), d)
-            return (
-                "\u00B1"
-                + ("(" + ify + ")" if ify != "1" else "")
-                + "sqrt("
-                + str(int(j))
-                + ")"
-            )
+            j += 1
+        remaining = a // (h * h)
+        fraction_str = stringify_fraction(h, d)
+        if remaining == 1:
+            return fraction_str
+        if fraction_str == "1":
+            return "\u00B1sqrt(" + str(remaining) + ")"
+        return "\u00B1(" + fraction_str + ")sqrt(" + str(remaining) + ")"
 
-    print(
-        "\nSolving: "
-        + (str(a) if a != 1 else "")
-        + "x²"
-        + ("+" if b >= 0 else "-")
-        + (str(abs(b)) if b != 1 else "")
-        + "x"
-        + ("+" if c >= 0 else "-")
-        + str(abs(c))
-        + "=0"
-    )
+    def is_perfect_square(n):
+        i = 0
+        while i * i < n:
+            i += 1
+        return i * i == n
+
+    two_a = 2 * a
+    eq_str = "\nSolving: "
+    if a != 1:
+        eq_str += str(a)
+    eq_str += "x²"
+    eq_str += "+" if b >= 0 else "-"
+    if abs(b) != 1:
+        eq_str += str(abs(b))
+    eq_str += "x"
+    eq_str += "+" if c >= 0 else "-"
+    eq_str += str(abs(c)) + "=0"
+    print(eq_str)
     if a == 0:
         print("a cannot equal 0.")
         return
     disc = b * b - 4 * a * c
-    e = sqrt(abs(disc))
-    f = e - int(e)
+    abs_disc = abs(disc)
+    e = sqrt(abs_disc)
+    is_sq = is_perfect_square(abs_disc)
     if abs(disc) < 1e-10:
-        print(
-            "Disc.=0, repeated root at:\nx="
-            + stringify_fraction(-b, 2 * a),
-        )
+        print("Disc.=0, repeated root at:\nx=" + stringify_fraction(-b, two_a))
         print("in decimal:")
-        print("x=" + str(-b / (2 * a)))
+        print("x=" + str(-b / two_a))
     elif disc < 0:
         print("Disc.=" + str(disc) + ", two complex roots.")
-        if f == 0:
+        if is_sq:
+            frac = stringify_fraction(int(e), two_a)
+            real_part = stringify_fraction(-b, two_a)
+            im_part = frac if frac != "1" else ""
             print("Complex perfect square, rational parts at:")
-            ify = stringify_fraction(int(e), 2 * a)
-            print(
-                "x="
-                + stringify_fraction(-b, 2 * a)
-                + "+"
-                + (ify if ify != "1" else "")
-                + "i"
-            )
-            print(
-                "x="
-                + stringify_fraction(-b, 2 * a)
-                + "-"
-                + (ify if ify != "1" else "")
-                + "i"
-            )
+            print("x=" + real_part + "+" + im_part + "i")
+            print("x=" + real_part + "-" + im_part + "i")
             print("in decimal:")
-            print("x=" + str(-b / (2 * a)) + "\u00B1" + str(e / (2 * a)) + "i")
+            print("x=" + str(-b / two_a) + "\u00B1" + str(e / two_a) + "i")
         else:
-            ify = simplify_radical(abs(disc), 2 * a)
+            radical = simplify_radical(abs_disc, two_a)
             print("Complex radical roots at:")
-            print(
-                "x="
-                + stringify_fraction(-b, 2 * a)
-                + (ify if ify != "1" else "")
-                + "i"
-            )
+            print("x=" + stringify_fraction(-b, two_a) + radical + "i")
             print("in decimal:")
-            print("x=" + str(-b / (2 * a)) + "\u00B1" + str(e / (2 * a)) + "i")
-    elif disc > 0:
+            print("x=" + str(-b / two_a) + "\u00B1" + str(e / two_a) + "i")
+    else:
         print("Disc.=" + str(disc) + ", two real roots.")
-        if f == 0:
+        if is_sq:
+            plus = stringify_fraction(-b + int(e), two_a)
+            minus = stringify_fraction(-b - int(e), two_a)
             print("Real perfect square, rational roots at:")
-            print("x=" + stringify_fraction(-b + int(e), 2 * a))
-            print("x=" + stringify_fraction(-b - int(e), 2 * a))
+            print("x=" + plus)
+            print("x=" + minus)
             print("in decimal:")
-            print("x=" + str((-b + e) / (2 * a)))
-            print("x=" + str((-b - e) / (2 * a)))
+            print("x=" + str((-b + e) / two_a))
+            print("x=" + str((-b - e) / two_a))
         else:
+            radical = simplify_radical(disc, two_a)
             print("Real radical roots at:")
-            print(
-                "x="
-                + stringify_fraction(-b, 2 * a)
-                + simplify_radical(disc, 2 * a)
-            )
+            print("x=" + stringify_fraction(-b, two_a) + radical)
             print("in decimal:")
-            print("x=" + str((-b + e) / (2 * a)))
-            print("x=" + str((-b - e) / (2 * a)))
+            print("x=" + str((-b + e) / two_a))
+            print("x=" + str((-b - e) / two_a))
