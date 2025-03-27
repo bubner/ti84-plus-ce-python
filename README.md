@@ -1,6 +1,6 @@
 # ti84-plus-ce-python
 
-A small collection of Python programs to run on the TI-84 Plus CE Python graphing calculator.
+A small collection of Python programs and files to run/stored on the TI-84 Plus CE Python graphing calculator.
 
 To install, drag and drop the desired Python scripts onto the calculator using the TI Connect CE software.
 
