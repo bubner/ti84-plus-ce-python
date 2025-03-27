@@ -19,6 +19,8 @@ To use, run the program and select the desired function from the *vars* menu.
 | `pascal(n)` | Returns Pascal's triangle up to `n` rows. |
 | `binomial_expansion(n)` | Returns the symbolic binomial expansion of `(a + b)^n`. |
 | `solve_quadratic(a, b, c)` | Returns the real or complex solutions to the quadratic equation `ax^2 + bx + c = 0`. |
+| `fraction(n, d)` | Returns the fraction `n/d` in simplest form. |
+| `radical(a, d)` | Returns the simplest form of a radical expression `sqrt(a)/d`. |
 
 ### POLYDIV
 Performs synthetic or long polynomial division.
@@ -30,10 +32,10 @@ Enter the coefficients (including the constant term) of the dividend and divisor
 Solves triangles with the cosine and sine rules.
 
 ### TRIGREF
-Collection of trigonometric identities.
+Collection of trigonometric identities in comments.
 
 ### CALCREF
-Collection of common differentiation and integration rules.
+Collection of common differentiation and integration rules in comments.
 
 ### UNITCIRCLE
 Unit circle of length 1 with display and angle lookup/conversion.

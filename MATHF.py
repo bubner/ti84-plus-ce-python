@@ -59,35 +59,38 @@ def binomial_expansion(n):
     return " + ".join(terms)
 
 
-def solve_quadratic(a, b, c):
+def fraction(n, d):
     def gcd(a, b):
         while b != 0:
             a, b = b, a % b
         return a
+    g = gcd(abs(n), abs(d))
+    n //= g
+    d //= g
+    if d == 1:
+        return str(n)
+    return str(n) + "/" + str(d)
 
-    def stringify_fraction(n, d):
-        g = gcd(abs(n), abs(d))
-        n //= g
-        d //= g
-        if d == 1:
-            return str(n)
-        return str(n) + "/" + str(d)
 
-    def simplify_radical(a, d):
-        h = 1
-        j = 1
-        while j * j <= a:
-            if a % (j * j) == 0:
-                h = j
-            j += 1
-        remaining = a // (h * h)
-        fraction_str = stringify_fraction(h, d)
-        if remaining == 1:
-            return fraction_str
-        if fraction_str == "1":
-            return "\u00B1sqrt(" + str(remaining) + ")"
-        return "\u00B1(" + fraction_str + ")sqrt(" + str(remaining) + ")"
+def radical(a, d, suppress=False):
+    if not suppress:
+        print("sqrt(" + str(a) + ")/" + str(d) + " =")
+    h = 1
+    j = 1
+    while j * j <= a:
+        if a % (j * j) == 0:
+            h = j
+        j += 1
+    remaining = a // (h * h)
+    fraction_str = fraction(h, d)
+    if remaining == 1:
+        return fraction_str
+    if fraction_str == "1":
+        return "sqrt(" + str(remaining) + ")"
+    return "(" + fraction_str + ")sqrt(" + str(remaining) + ")"
 
+
+def solve_quadratic(a, b, c):
     def is_perfect_square(n):
         i = 0
         while i * i < n:
@@ -114,14 +117,14 @@ def solve_quadratic(a, b, c):
     e = sqrt(abs_disc)
     is_sq = is_perfect_square(abs_disc)
     if abs(disc) < 1e-10:
-        print("Disc.=0, repeated root at:\nx=" + stringify_fraction(-b, two_a))
+        print("Disc.=0, repeated root at:\nx=" + fraction(-b, two_a))
         print("in decimal:")
         print("x=" + str(-b / two_a))
     elif disc < 0:
         print("Disc.=" + str(disc) + ", two complex roots.")
         if is_sq:
-            frac = stringify_fraction(int(e), two_a)
-            real_part = stringify_fraction(-b, two_a)
+            frac = fraction(int(e), two_a)
+            real_part = fraction(-b, two_a)
             im_part = frac if frac != "1" else ""
             print("Complex perfect square, rational parts at:")
             print("x=" + real_part + "+" + im_part + "i")
@@ -129,16 +132,16 @@ def solve_quadratic(a, b, c):
             print("in decimal:")
             print("x=" + str(-b / two_a) + "\u00B1" + str(e / two_a) + "i")
         else:
-            radical = simplify_radical(abs_disc, two_a)
+            rad = "\u00B1" + radical(abs_disc, two_a, True)
             print("Complex radical roots at:")
-            print("x=" + stringify_fraction(-b, two_a) + radical + "i")
+            print("x=" + fraction(-b, two_a) + rad + "i")
             print("in decimal:")
             print("x=" + str(-b / two_a) + "\u00B1" + str(e / two_a) + "i")
     else:
         print("Disc.=" + str(disc) + ", two real roots.")
         if is_sq:
-            plus = stringify_fraction(-b + int(e), two_a)
-            minus = stringify_fraction(-b - int(e), two_a)
+            plus = fraction(-b + int(e), two_a)
+            minus = fraction(-b - int(e), two_a)
             print("Real perfect square, rational roots at:")
             print("x=" + plus)
             print("x=" + minus)
@@ -146,9 +149,9 @@ def solve_quadratic(a, b, c):
             print("x=" + str((-b + e) / two_a))
             print("x=" + str((-b - e) / two_a))
         else:
-            radical = simplify_radical(disc, two_a)
+            rad = "\u00B1" + radical(disc, two_a, True)
             print("Real radical roots at:")
-            print("x=" + stringify_fraction(-b, two_a) + radical)
+            print("x=" + fraction(-b, two_a) + rad)
             print("in decimal:")
             print("x=" + str((-b + e) / two_a))
             print("x=" + str((-b - e) / two_a))
