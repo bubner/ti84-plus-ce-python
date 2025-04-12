@@ -38,7 +38,7 @@ def draw_unit_circle():
 def update():
     a = angles[idx]
     plt.color(0, 0, 0)
-    plt.text_at(11, str(idx + 1) + "/16 " + str(a[1]) + " (" + str(a[0]) + "°)", "center")
+    plt.text_at(11, "[" + str(idx + 1) + "/16] " + str(a[1]) + " (" + str(a[0]) + "°)", "center")
     plt.text_at(12, "(" + str(a[2]) + ", " + str(a[3]) + ")", "center")
     plt.color(255, 0, 0)
     plt.line(0, 0, cos(radians(a[0])) * 0.9, sin(radians(a[0])) * 0.9, "arrow")
