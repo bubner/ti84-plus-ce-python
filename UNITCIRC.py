@@ -1,5 +1,5 @@
 from math import pi, cos, sin, radians
-from ti_system import escape
+from ti_system import escape, wait_key
 import ti_plotlib as plt
 
 idx = 0
@@ -50,17 +50,38 @@ def main():
     plt.window(-2.8, 2.8, -1.8, 1.8)
     plt.grid(1, 1, "dot")
     global idx
-    rising = False
     draw_unit_circle()
     update()
-    while True:
-        es = escape()
-        if es and not rising:
-            plt.color(255, 255, 255)
-            plt.line(0, 0, cos(radians(angles[idx][0])) * 0.9, sin(radians(angles[idx][0])) * 0.9, "arrow")
+    while not escape():
+        k = wait_key()
+        if k in (9, 64):
+            return
+        o = idx
+        if k == 1:
             idx += 1
-            idx %= 16
-            update()
-        rising = es
+        elif k == 2:
+            idx -= 1
+        elif k == 143:
+            idx = 10
+        elif k == 144:
+            idx = 12
+        elif k == 145:
+            idx = 14
+        elif k == 146:
+            idx = 8
+        elif k == 148:
+            idx = 0
+        elif k == 149:
+            idx = 6
+        elif k == 150:
+            idx = 4
+        elif k == 151:
+            idx = 2
+        else:
+            continue
+        idx %= 16
+        plt.color(255, 255, 255)
+        plt.line(0, 0, cos(radians(angles[o][0])) * 0.9, sin(radians(angles[o][0])) * 0.9, "arrow")
+        update()
 
 main()

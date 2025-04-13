@@ -46,5 +46,6 @@ To use, open the program editor and view the comments for the desired rule.
 ### UNITCIRC
 Unit circle of length 1 with display and angle/position lookup.
 
-To use, run the program and cycle through the angles with the *clear* key. The program will display the corresponding coordinates on the unit circle.
-The program will also display the angle in degrees and radians, as well as the sine and cosine values. To exit, use *2nd* + *quit*.
+To use, run the program and cycle through the angles with the *left (<)* and *right (>)* keys. The program will display the corresponding angle and position.
+You can also use the number buttons *1*, *2*, *3*, *4*, *6*, *7*, *8*, *9* to "jump" to a quadrant quickly.
+To exit, use *2nd* + *quit* or *clear*.
