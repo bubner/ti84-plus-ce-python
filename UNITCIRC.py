@@ -25,12 +25,12 @@ angles = [
 
 def draw_unit_circle():
     points = []
-    for i in range(31):
-        angle = 2 * pi * i / 30
+    for i in range(19):
+        angle = 2 * pi * i / 18
         x = cos(angle)
         y = sin(angle)
         points.append((x, y))
-    for i in range(30):
+    for i in range(18):
         x1, y1 = points[i]
         x2, y2 = points[i + 1]
         plt.line(x1, y1, x2, y2)
