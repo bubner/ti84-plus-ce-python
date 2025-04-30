@@ -21,6 +21,8 @@ To use, run the program and select the desired function from the *vars* menu.
 | `solve_quadratic(a, b, c)` | Returns the real or complex solutions to the quadratic equation `ax^2 + bx + c = 0`. |
 | `fraction(n, d)` | Returns the fraction `n/d` in simplest form. |
 | `radical(a, d)` | Returns the simplest form of a radical expression `sqrt(a)/d`. |
+| `dot3(a1, a2, a3, b1, b2, b3)` | Computes the dot product of 3D vectors `(a1, a2, a3)` and `(b1, b2, b3)`. |
+| `cross3(a1, a2, a3, b1, b2, b3)` | Computes the cross product vector of 3D vectors `(a1, a2, a3)` and `(b1, b2, b3)`. |
 
 ### POLYDIV
 Performs synthetic or long polynomial division.

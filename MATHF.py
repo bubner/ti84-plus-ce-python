@@ -155,3 +155,12 @@ def solve_quadratic(a, b, c):
             print("in decimal:")
             print("x=" + str((-b + e) / two_a))
             print("x=" + str((-b - e) / two_a))
+
+
+def dot3(a1, a2, a3, b1, b2, b3):
+    return a1 * b1 + a2 * b2 + a3 * b3
+
+
+def cross3(a1, a2, a3, b1, b2, b3):
+    return [a2 * b3 - a3 * b2, a3 * b1 - a1 * b3, a1 * b2 - a2 * b1]
+
