@@ -164,3 +164,7 @@ def dot3(a1, a2, a3, b1, b2, b3):
 def cross3(a1, a2, a3, b1, b2, b3):
     return [a2 * b3 - a3 * b2, a3 * b1 - a1 * b3, a1 * b2 - a2 * b1]
 
+
+def hypot(*coords):
+    return sqrt(sum(x * x for x in coords))
+

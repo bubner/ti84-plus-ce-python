@@ -23,6 +23,7 @@ To use, run the program and select the desired function from the *vars* menu.
 | `radical(a, d)` | Returns the simplest form of a radical expression `sqrt(a)/d`. |
 | `dot3(a1, a2, a3, b1, b2, b3)` | Computes the dot product of 3D vectors `(a1, a2, a3)` and `(b1, b2, b3)`. |
 | `cross3(a1, a2, a3, b1, b2, b3)` | Computes the cross product vector of 3D vectors `(a1, a2, a3)` and `(b1, b2, b3)`. |
+| `hypot(a, b, c, ...)` | Computes the Euclidean norm of n-dimensional coordinates (`sqrt(a^2+b^2+c^2+...)`). |
 
 ### POLYDIV
 Performs synthetic or long polynomial division.
